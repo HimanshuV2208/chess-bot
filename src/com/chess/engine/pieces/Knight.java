@@ -19,6 +19,22 @@ public class Knight extends Piece {
         super(piecePosition, pieceAlliance);
     }
 
+    private static boolean isFirstColumnExclusion(final int currentPosition, final int candidateOffset) {
+        return BoardUtils.FIRST_COLUMN[currentPosition] && (candidateOffset == -17 || candidateOffset == -10 || candidateOffset == 6 || candidateOffset == 15);
+    }
+
+    private static boolean isSecondColumnExclusion(final int currentPosition, final int candidateOffset) {
+        return BoardUtils.SECOND_COLUMN[currentPosition] && (candidateOffset == -10 || candidateOffset == 6);
+    }
+
+    private static boolean isSeventhColumnExclusion(final int currentPosition, final int candidateOffset) {
+        return BoardUtils.SEVENTH_COLUMN[currentPosition] && (candidateOffset == -6 || candidateOffset == 10);
+    }
+
+    private static boolean isEightColumnExclusion(final int currentPosition, final int candidateOffset) {
+        return BoardUtils.EIGHT_COLUMN[currentPosition] && (candidateOffset == -15 || candidateOffset == -6 || candidateOffset == 10 || candidateOffset == 17);
+    }
+
     @Override
     public Collection<Move> calculateLegalMoves(Board board) {
 
@@ -26,10 +42,7 @@ public class Knight extends Piece {
 
         for (final int currentCandidateOffset : CANDIDATE_MOVE_COORDINATES) {
 
-            if (isFirstColumnExclusion(this.piecePosition, currentCandidateOffset) ||
-                    isSecondColumnExclusion(this.piecePosition, currentCandidateOffset) ||
-                    isSeventhColumnExclusion(this.piecePosition, currentCandidateOffset) ||
-                    isEightColumnExclusion(this.piecePosition, currentCandidateOffset)) {
+            if (isFirstColumnExclusion(this.piecePosition, currentCandidateOffset) || isSecondColumnExclusion(this.piecePosition, currentCandidateOffset) || isSeventhColumnExclusion(this.piecePosition, currentCandidateOffset) || isEightColumnExclusion(this.piecePosition, currentCandidateOffset)) {
                 continue;
             }
 
@@ -54,21 +67,5 @@ public class Knight extends Piece {
         }
 
         return ImmutableList.copyOf(legalMoves);
-    }
-
-    private static boolean isFirstColumnExclusion(final int currentPosition, final int candidateOffset) {
-        return BoardUtils.FIRST_COLUMN[currentPosition] && (candidateOffset == -17 || candidateOffset == -10 || candidateOffset == 6 || candidateOffset == 15);
-    }
-
-    private static boolean isSecondColumnExclusion(final int currentPosition, final int candidateOffset) {
-        return BoardUtils.SECOND_COLUMN[currentPosition] && (candidateOffset == -10 || candidateOffset == 6);
-    }
-
-    private static boolean isSeventhColumnExclusion(final int currentPosition, final int candidateOffset) {
-        return BoardUtils.SEVENTH_COLUMN[currentPosition] && (candidateOffset == -6 || candidateOffset == 10);
-    }
-
-    private static boolean isEightColumnExclusion(final int currentPosition, final int candidateOffset) {
-        return BoardUtils.EIGHT_COLUMN[currentPosition] && (candidateOffset == -15 || candidateOffset == -6 || candidateOffset == 10 || candidateOffset == 17);
     }
 }

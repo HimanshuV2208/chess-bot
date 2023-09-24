@@ -2,7 +2,7 @@ package com.chess.engine.board;
 
 public class Board {
 
-    public Tile getTile(final int tileCoordinates){
+    public Tile getTile(final int tileCoordinates) {
         return null;
     }
 

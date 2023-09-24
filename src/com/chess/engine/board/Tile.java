@@ -6,6 +6,8 @@ import com.google.common.collect.ImmutableMap;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.chess.engine.board.BoardUtils.NUM_TILES;
+
 public abstract class Tile {
 
     //Cache for all possible empty tiles
@@ -17,8 +19,8 @@ public abstract class Tile {
     }
 
     private static Map<Integer, EmptyTile> createAllPossibleEmptyTiles() {
-        final Map<Integer, EmptyTile> emptyTileMap = new HashMap<>(64);
-        for (int i = 0; i < 64; i++) {
+        final Map<Integer, EmptyTile> emptyTileMap = new HashMap<>(NUM_TILES);
+        for (int i = 0; i < NUM_TILES; i++) {
             emptyTileMap.put(i, new EmptyTile(i));
         }
 
