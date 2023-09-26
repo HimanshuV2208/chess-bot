@@ -10,6 +10,8 @@ public class BoardUtils {
     public static final boolean[] SECOND_COLUMN = initColumn(1);
     public static final boolean[] SEVENTH_COLUMN = initColumn(6);
     public static final boolean[] EIGHT_COLUMN = initColumn(7);
+    public static final boolean[] SECOND_ROW = initRow(1);
+    public static final boolean[] SEVENTH_ROW = initRow(6);
 
     private BoardUtils() {
         throw new RuntimeException("Not Instantiable");
@@ -24,6 +26,15 @@ public class BoardUtils {
         while (columnNumber < NUM_TILES) {
             board[columnNumber] = true;
             columnNumber += NUM_TILES_PER_ROW;
+        }
+        return board;
+    }
+
+    private static boolean[] initRow(int rowNumber) {
+        final boolean[] board = new boolean[NUM_TILES];
+        int coordinate = rowNumber * NUM_TILES_PER_ROW;
+        for (int i = 0; i < NUM_TILES_PER_ROW; i++) {
+            board[coordinate++] = true;
         }
         return board;
     }
