@@ -5,19 +5,35 @@ import com.chess.engine.board.Board;
 import com.chess.engine.board.Move;
 import com.chess.engine.pieces.King;
 import com.chess.engine.pieces.Piece;
+import com.google.common.collect.ImmutableList;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public abstract class Player {
 
     protected final Board board;
     protected final King playerKing;
     protected final Collection<Move> legalMoves;
+    private final boolean isInCheck;
 
     public Player(final Board board, final Collection<Move> legalMoves, final Collection<Move> opponentMoves) {
         this.board = board;
         this.legalMoves = legalMoves;
         this.playerKing = establishKing();
+        this.isInCheck = !Player.calculateAttackOnTile(this.playerKing.getPiecePosition(), opponentMoves).isEmpty();
+    }
+
+    private static Collection<Move> calculateAttackOnTile(final int piecePosition, final Collection<Move> moves) {
+        final List<Move> attackMoves = new ArrayList<>();
+
+        for(final Move move : moves){
+            if(piecePosition == move.getDestinationCoordinate()){
+                attackMoves.add(move);
+            }
+        }
+        return ImmutableList.copyOf(attackMoves);
     }
 
     private King establishKing() {
@@ -47,6 +63,10 @@ public abstract class Player {
 
     public boolean isInStalemate() {
         return false;
+    }
+
+    public MoveTransition makeMove(final Move move){
+        return null;
     }
 
     public abstract Collection<Piece> getActivePieces();
