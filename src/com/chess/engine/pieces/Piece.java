@@ -8,11 +8,13 @@ import java.util.Collection;
 
 public abstract class Piece {
 
+    protected final PieceType pieceType;
     protected final int piecePosition;
     private final Alliance pieceAlliance;
     private final boolean isFirstMove;
 
-    Piece(final int piecePosition, final Alliance pieceAlliance) {
+    Piece(PieceType pieceType, final int piecePosition, final Alliance pieceAlliance) {
+        this.pieceType = pieceType;
         this.piecePosition = piecePosition;
         this.pieceAlliance = pieceAlliance;
         isFirstMove = false;
@@ -32,13 +34,26 @@ public abstract class Piece {
         return this.piecePosition;
     }
 
+    public PieceType getPieceType() {
+        return null;
+    }
+
     public enum PieceType {
-        PAWN("P"), KNIGHT("N"), BISHOP("B"), ROOK("R"), QUEEN("Q"), KING("K");
+        PAWN("P"), KNIGHT("N"), BISHOP("B"), ROOK("R"), QUEEN("Q"), KING("K") {
+            @Override
+            public boolean isKing() {
+                return true;
+            }
+        };
 
         private final String pieceName;
 
         PieceType(final String pieceName) {
             this.pieceName = pieceName;
+        }
+
+        public boolean isKing() {
+            return false;
         }
 
         @Override
