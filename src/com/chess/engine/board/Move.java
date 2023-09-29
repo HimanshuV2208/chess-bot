@@ -17,10 +17,17 @@ public abstract class Move {
         return destinationCoordinates;
     }
 
+    public abstract Board execute();
+
     public static final class MajorMove extends Move {
 
         public MajorMove(final Board board, final Piece movedPiece, final int destinationCoordinates) {
             super(board, movedPiece, destinationCoordinates);
+        }
+
+        @Override
+        public Board execute() {
+            return null;
         }
     }
 
@@ -31,6 +38,11 @@ public abstract class Move {
         public AttackMove(final Board board, final Piece movedPiece, final int destinationCoordinates, final Piece attackedPiece) {
             super(board, movedPiece, destinationCoordinates);
             this.attackedPiece = attackedPiece;
+        }
+
+        @Override
+        public Board execute() {
+            return null;
         }
     }
 
